@@ -7,9 +7,11 @@ WORKDIR /first_task
 # Copy essential files from directory
 COPY app.py .
 COPY templates/index.html templates/ 
+COPY static/uploads static/uploads
 
 # Install Flask
 RUN pip install Flask
+
 
 # Port number - needs to match flask
 EXPOSE 3000
