@@ -36,7 +36,7 @@ docker tag <image name> <docker username>/<repository name>
 docker push <docker username>/<repository name>
 ```
 
-## Moving doker image to EC2
+## Moving Docker Image to EC2
 
 1. Locate keypair.pem file on local machine - note down path to file
 2. Secure keypair file:
@@ -50,6 +50,7 @@ chmod 400 <path>/keypair.pem
 ```
 ssh -i <path>/keypair.pem ec2-user@<instance public DNS address>
 ```
+Keep in mind, ec2-user is the default user set up when creating an instance on EC2, if this has changed, replace it!
 
 4. Install docker to instance:
 
