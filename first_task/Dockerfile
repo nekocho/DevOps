@@ -20,7 +20,7 @@ RUN pip install Flask
 
 
 # Port number - needs to match flask
-EXPOSE 3000
+EXPOSE 80
 
 # Start the app using python commands
 CMD [ "python", "app.py" ]
