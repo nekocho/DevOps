@@ -8,6 +8,7 @@
 6. Edit network tab to ensure launch-wizard is unique
 7. Leave everything else as default 
 8. Launch Instance
+9. Change inbound rules to match port
 
 Important to remember to change/edit inbound rules in the security tab once instance has launched.
 Make sure to set custom TCP and change port number to match what's in your application

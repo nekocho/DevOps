@@ -1,0 +1,20 @@
+{
+    "AWSEBDockerrunVersion": "1",
+    "Image": {
+        "Name": "nekocho/new_flask",
+        "Update": "true"
+    },
+    "Ports":[
+          {
+            "hostPort": 80,
+            "containerPort": 80
+          }
+        ],
+        "environment": [
+          {
+            "name": "ENVIRONMENT_NAME",
+            "value": "Zoes-beanstalk-env"
+          }
+        ]
+}
+  

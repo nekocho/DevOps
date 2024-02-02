@@ -2,7 +2,6 @@ from flask import Flask, render_template, request
 from werkzeug.utils import secure_filename 
 import os
 
-
 app = Flask(__name__)
 
 upload_folder = os.path.join('static', 'uploads') # Constructs path to the folder needed, joins the path using os.path.join
