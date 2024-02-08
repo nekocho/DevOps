@@ -50,6 +50,11 @@ To set up a serverless CI-CD, create an index.html page for a static website, cr
 3. Go to CloudFormation and create a new stack with new resources
     - Leave template as template is ready
     - Select Upload a template and upload the saved JSON file in step one
+    - Put any stack name
+    - InstanceType: t2.micro
+    - KeyPair: Choose the keypair created in step two
+    - Leave next page as is and create stack
+    - Stack creation will take a few minutes
 4. In the outputs, find the InstanceDns record to see the hostname of your new server.
 5. The configuration file should have installed jenkins, to access go to 
 ```
