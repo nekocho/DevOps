@@ -1,5 +1,6 @@
-## Setting up EC2 Instance
+# EC2 Instances
 
+## Setting up EC2 Instance
 1. Click on Launch instance from EC2 dashboard
 2. Check in top right of screen near user details you are in correct region
 3. Name server
