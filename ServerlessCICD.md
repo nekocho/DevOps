@@ -23,9 +23,11 @@ To set up a serverless CI-CD, create an index.html page for a static website, cr
 
 1. Using the CloudFormation template provided, edit this to show your S3 bucket name, Template found here: 
     https://github.com/makersacademy/serverless-cicd/blob/main/resources/deploy_ec2_network_v1.json
-    - Save this as a CloudFormation JSON configuration file
+    - Save this as a CloudFormation JSON configuration file - can be called anything
 2. Create a new EC2 keypair 
-3. Go to CloudFormation and create a new stack uploading the configuration file (in step 1)
+3. Go to CloudFormation and create a new stack with new resources
+    - Leave template as template is ready
+    - Select Upload a template and upload the saved JSON file in step one
 4. In the outputs, find the InstanceDns record to see the hostname of your new server.
 5. The configuration file should have installed jenkins, to access go to 
 ```
