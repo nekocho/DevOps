@@ -9,11 +9,33 @@ To set up a serverless CI-CD, create an index.html page for a static website, cr
     - Doesn't work by region
 2. On bucket page, go to permissions
 3. Disable "Block all public access"
-4. Update "Bucket policy" using a policy document:
-    - JSON file
-    - Changes who can OR cannot access or do certain things
-    - Lists what resources needed in specific AWS services
-    - Specifies conditions
+4. Edit "Bucket policy" using a policy document:
+    - Add new statement
+    - Search for S3 and select all actions
+    - For principal replace {} with "*"
+    - In resources replace [] with "arn:aws:s3:::BUCKET_NAME/*"
+    - For action, change to s3:GetObject
+    - Bucket policy does the following:
+        - JSON file
+        - Changes who can OR cannot access or do certain things
+        - Lists what resources needed in specific AWS services
+        - Specifies conditions
+    - Bucket policy should look like this:
+
+    ```
+    {
+    "Version": "2012-10-17",
+    "Statement": [
+            {
+                "Sid": "Statement1",
+                "Effect": "Allow",
+                "Principal": "*",
+                "Action": "s3:GetObject",
+                "Resource": "arn:aws:s3:::BUCKET_NAME/*"
+            }
+        ]
+    }
+    ```
 
 5. Go to properties tab and at bottom, enable static website hosting
 6. You now have access to "Bucket Website Endpoint", this will be the link to access the webpage
