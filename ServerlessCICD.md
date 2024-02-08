@@ -76,6 +76,10 @@ sudo cat /var/lib/jenkins/secrets/initialAdminPassword
 ```
 9. Copy and paste the key provided into the Admin password field on the Unlock Jenkins page
 10. Click on Install suggested Plugins
+    - If plugins do not install use the following link to restart jenkins:
+```
+http://YOUR_INSTANCE_DNS_VALUE:8080/safeRestart
+```
 11. Create a User account and password
 
 ## Creating a pipeline
@@ -84,28 +88,30 @@ sudo cat /var/lib/jenkins/secrets/initialAdminPassword
 2. Optionally, copy and paste files from here:
 https://github.com/makersacademy/serverless-cicd/tree/main/template
 3. Important files needed are index.html and package.JSON
-4. Create a new pipeline on Jenkins
-5. Add a pipeline script to configure:
-    - Clones repository
-    - Set up NodeJS to run checks
-    - Install NodeJS dependencies
-    - Run checks using npm run check
-    - Deploy to S3 ONLY if everything passes
-
-    Use this link for the template of the pipeline script:
-    https://github.com/makersacademy/serverless-cicd/blob/main/03_set_up_pipeline.md#resources
+4. On JENKINS Go to Create a Job and choose pipeline
+5. Once created, in pipeline go to configure
+5. Add a pipeline script to script section at the bottom from here: 
+https://github.com/makersacademy/serverless-cicd/blob/main/03_set_up_pipeline.md#resources 
+    - This script does the following:
+        - Clones repository
+        - Set up NodeJS to run checks
+        - Install NodeJS dependencies
+        - Run checks using npm run check
+        - Deploy to S3 ONLY if everything passes
 
 6. Adding github credentials to Jenkins:
-    - On JENKINS: Manage Jenkins > Credentials > Global > Add credentials 
+    - On JENKINS: Dashboard > Manage Jenkins > Credentials > (global) > Add credentials 
     - Select Username and Password
     - Fill in Username (github user) and id field (can be anything), DON'T add password
     - On GITHUB: Settings > Developer settings > Personal access tokens > Fine grained tokens > Generate
-    - Give access to the following:
+    - Select "Only select repositories" and choose your private repository
+    - In "Repository Permissions" give access to the following:
         - Commit statuses: Read & Write
         - Contents: Read Only
         - Metadata: Read Only
     - Put generated token into password field on JENKINS in credentials created
     - Copy ID of credentials and paste into Pipeline script
+    - Change the repository URL in the script to match your repository
 7. In terminal, SSH into your webserver using the keypair and the publicDNS link from Cloudformation (under Outputs tab)
 
 ```
@@ -119,15 +125,16 @@ ssh -i <path to keypair file> ec2-user@<DNS link>
 sudo yum install git
 ```
 
-9. Run the pipeline
+9. Build pipeline
 10. If any failures, click on the number of the build and go to console logs, towards the bottom, there will be error messages
 11. If git is installed correctly and package.json has correct dependencies, first two should pass
 12. If HTML fails, this is to do with either whitespaces or incorrect HTML
 13. Deployment will fail as AWS credentials have not been added:
     - In AWS, go to IAM and create a new User Group
+    - Add your own user and other members in a group OR create a new user
     - Add permissions to the group directly by going to Permissions > Add Permissions > Create Inline policy
-    - Copy and paste the User group policy here: https://github.com/makersacademy/serverless-cicd/blob/main/03_set_up_pipeline.md#resources
-    - After, add or create a user to add to the group
+    - Click on JSON and copy and paste the User group policy here: https://github.com/makersacademy/serverless-cicd/blob/main/03_set_up_pipeline.md#resources
+    - After, create or add a user to the group
     - Open the user account and go to Security Credentials > Access Keys > Create access key > Other > Next
     - Copy Access key and Secret Access key
     - On Jenkins: Dashboard > Manage Jenkins > Plugins > Available Plugins > Install AWS Credentials
@@ -149,13 +156,16 @@ sudo yum install git
 ## Setting up Lambda Function and API gateway
 
 1. Create a lambda function
+    - Make sure Author from scratch is selected
     - Under runtime, set it as python
     - Select correct Architecture: arm64 for silicon mac
+    - Click create
 2. Copy the function here: https://github.com/makersacademy/serverless-cicd/blob/main/resources/your-first-lambda.py
+    - Replace lambda place holder code with the function copied
 3. Deploy Lambda function
     - If any changes made, needs to be deployed each time
 4. Test Lambda function
-5. Create an API gateway:
+5. Go to API gateway and create an API gateway:
     - Choose HTTP API 
     - Choose Lambda for integration
     - Choose the created lambda function from dropdown menu
