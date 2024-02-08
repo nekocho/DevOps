@@ -62,8 +62,21 @@ http://YOUR_INSTANCE_DNS_VALUE:8080/
 ```
 Instance DNS can be found under Outputs tab on CloudFormation
 
-6. You should see a Jenkins user account creation page
-7. Once registered, sign in using your user and password
+6. You should see an Unlock Jenkins page
+7. SSH into your instance DNS:
+
+```
+chmod 400 <path to keypair file>
+ssh -i <path to keypair file> ec2-user@<InstanceDNS>
+```
+8. To get the JENKINS admin password use the following command in SSH:
+
+```
+sudo cat /var/lib/jenkins/secrets/initialAdminPassword
+```
+9. Copy and paste the key provided into the Admin password field on the Unlock Jenkins page
+10. Click on Install suggested Plugins
+11. Create a User account and password
 
 ## Creating a pipeline
 
